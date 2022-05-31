@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	"github.com/gorilla/mux"
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +21,7 @@ func returnAllArticles(w http.ResponseWriter, r *http.Request) {
 func returnArticle(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := vars["id"]
-	fmt.Fprintf(w, "Key: " + key)
+	fmt.Fprintf(w, "Key: "+key)
 	for _, a := range Articles {
 		if a.Id == key {
 			json.NewEncoder(w).Encode(a)
@@ -43,16 +43,16 @@ func handleRequests() {
 func main() {
 	fmt.Println("Rest API v2. - Mux Routers")
 	Articles = []Article{
-		Article{Id: "1", Title: "Hello", Desc: "Description", Content:"Content"},
-		Article{Id: "2", Title: "Hello1", Desc: "Description1", Content:"Content1"},
+		Article{Id: "1", Title: "Hello", Desc: "Description", Content: "Content"},
+		Article{Id: "2", Title: "Hello1", Desc: "Description1", Content: "Content1"},
 	}
 	handleRequests()
 }
 
 type Article struct {
-	Id string `json:"Id"`
-	Title string `json:"Title"`
-	Desc string `json:"desc"`
+	Id      string `json:"Id"`
+	Title   string `json:"Title"`
+	Desc    string `json:"desc"`
 	Content string `json:Content`
 }
 
